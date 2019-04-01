@@ -1,0 +1,43 @@
+footer{
+  background-color: #94AE89;
+}
+
+.game{
+  text-align: center;
+}
+
+.grid{
+  max-width: 800px;
+  height: 700px;
+  background-image: url('../images/grid.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+
+.button{
+  width: 33.3%;
+  text-align: center;
+  display: inline-block;
+}
+
+.row{
+  width: 92%;
+  height: 200px;
+  display: flex;
+}
+
+.move{
+  max-width:100%;
+  max-height:100%;
+  text-align: center;
+}
+
+p{
+  text-align: center;
+  display: inline-block;
+  background-color: #FADF7F;
+  font-size: 3em;
+  margin: 0 auto;
+}

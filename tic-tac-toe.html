@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/tic-tac-toe.css">
+    <title>Tic Tac Toe</title>
+    <script src="js/tic-tac-toe.js"></script>
+    <script src="js/jQuery.js"></script>
+    <script src="js/tttjQ.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+      <main>
+        <div class='game'>
+          <div class="grid">
+            <div class="row">
+              <div class="button" id="00"><img class='move'></div>
+              <div class="button" id="10"><img class='move'></div>
+              <div class="button" id="20"><img class='move'></div>
+            </div>
+            <div class="row">
+              <div class="button" id="01"><img class='move' src="" alt=""></div>
+              <div class="button" id="11"><img class='move' src="" alt=""></div>
+              <div class="button" id="21"><img class='move' src="" alt=""></div>
+            </div>
+            <div class="row">
+              <div class="button" id="02"><img class='move' src="" alt=""></div>
+              <div class="button" id="12"><img class='move' src="" alt=""></div>
+              <div class="button" id="22"><img class='move' src="" alt=""></div>
+            </div>
+          </div>
+          <p class='help'>How goes the game?</p>
+        </div>
+      </main>
+      <footer>
+        <h3>Settings</h3>
+        <select id="game-select">
+          <option value="">--Please choose an option--</option>
+          <option value="aiEasy">AI Easy</option>
+          <option value="aiHard">AI Hard</option>
+          <option value="vsLocal">VS Local</option>
+          <option value="vsOnline">VS Online</option>
+        </select>
+        <input id="newGame" type="button" value="New Game" />
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+/*
+#FE4A49
+#94AE89
+#E6E6EA
+#FADF7F
+#616163
+*/
+
+*{
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+}
+
+body{
+  background-color: #616163;
+}
+
+.container{
+   max-width: 960px;
+   border-radius: 0.5em;
+   margin: 0 auto;
+   background-color: #E6E6EA
+}
+
+header{
+  text-align: center;
+  font-size: 200%;
+  background-color: #94AE89;
+  padding: 1em;
+  border-radius: 0.5em;
+  color: #FADF7F;
+}
+
+main{
+  color: #FE4A49;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameName{
+  width: 40%;
+  text-align: right;
+  font-size: 5em;
+}
+
+a{
+  width: 58%;
+}
+
+.gameImage{
+  line-height: 300px;
+}
