@@ -18,21 +18,15 @@
       <main>
         <div class='game'>
           <div class="grid">
-            <div class="row">
-              <div class="button" id="00"><img class='move'></div>
-              <div class="button" id="10"><img class='move'></div>
-              <div class="button" id="20"><img class='move'></div>
-            </div>
-            <div class="row">
-              <div class="button" id="01"><img class='move' src="" alt=""></div>
-              <div class="button" id="11"><img class='move' src="" alt=""></div>
-              <div class="button" id="21"><img class='move' src="" alt=""></div>
-            </div>
-            <div class="row">
-              <div class="button" id="02"><img class='move' src="" alt=""></div>
-              <div class="button" id="12"><img class='move' src="" alt=""></div>
-              <div class="button" id="22"><img class='move' src="" alt=""></div>
-            </div>
+              <div class="button" id="id00"><img class='move'></div>
+              <div class="button" id="id10"><img class='move'></div>
+              <div class="button" id="id20"><img class='move'></div>
+              <div class="button" id="id01"><img class='move'></div>
+              <div class="button" id="id11"><img class='move'></div>
+              <div class="button" id="id21"><img class='move'></div>
+              <div class="button" id="id02"><img class='move'></div>
+              <div class="button" id="id12"><img class='move'></div>
+              <div class="button" id="id22"><img class='move'></div>
           </div>
           <p class='help'>How goes the game?</p>
         </div>
@@ -40,11 +34,11 @@
       <footer>
         <h3>Settings</h3>
         <select id="game-select">
-          <option value="">--Please choose an option--</option>
-          <option value="aiEasy">AI Easy</option>
-          <option value="aiHard">AI Hard</option>
           <option value="vsLocal">VS Local</option>
-          <option value="vsOnline">VS Online</option>
+          <option value="aiEasy">AI Easy</option>
+          <option value="aiHard">AI Hard/NA</option>
+          <option value="vsOnline">VS Online/NA</option>
+          <option value="">--Please choose an option--</option>
         </select>
         <input id="newGame" type="button" value="New Game" />
       </footer>

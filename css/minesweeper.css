@@ -1,4 +1,74 @@
-*{
-  box-sizing: border-box;
-  /* border: 1px solid red; */
+main{
+  display: flex;
+  justify-content: center;
+}
+
+.row{
+  display: flex;
+}
+
+.square{
+  height: 24px;
+  width: 24px;
+}
+
+.hidden {
+
+  background: url('../images/cell.png');
+}
+
+.hidden:hover{
+  background: url('../images/cellOver.png');
+}
+
+.hidden:active{
+  background: url('../images/cellDown.png');
+}
+
+.zero{
+  background: url('../images/emptyCell.png');
+}
+
+.one{
+  background: url('../images/1cell.png');
+}
+
+.two{
+  background: url('../images/2cell.png');
+}
+
+.three{
+  background: url('../images/3cell.png');
+}
+
+.four{
+  background: url('../images/4cell.png');
+}
+
+.five{
+  background: url('../images/5cell.png');
+}
+
+.six{
+  background: url('../images/6cell.png');
+}
+
+.seven{
+  background: url('../images/7cell.png');
+}
+
+.eight{
+  background: url('../images/8cell.png');
+}
+
+.nine{
+  background: url('../images/9cell.png');
+}
+
+.explodeMine{
+  background: url('../images/explodedMineCell.png');
+}
+
+.flag{
+  background: url('../images/flaggedCell.png');
 }
