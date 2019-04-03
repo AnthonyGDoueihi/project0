@@ -5,6 +5,26 @@ const ms = {
   minesLeft: 0,
   safeLeft: 0,
 
+  newGame: function(gameType, r = 1 , c = 1, m = 0){
+    this.grid = [];
+    this.revealedGrid = [];
+
+    this.minesLeft = 0;
+    this.safeLeft = 0;
+
+    if( gameType === 'small'){
+      this.createGrid(8, 8, 10);
+    }else if( gameType === 'medium'){
+      this.createGrid(16, 16, 40);
+    }else if( gameType === 'large'){
+      this.createGrid(24, 24, 99);
+    }else if( gameType === 'custom'){
+      if(r * c > m){
+        this.createGrid(r, c, m);
+      }
+    }
+  },
+
   createGrid: function(c, r, m){
     this.grid = [];
     this.revealedGrid = [];
@@ -137,21 +157,4 @@ const ms = {
     console.log("you win");
   },
 
-  newGame: function(gameType, r = 1 , c = 1, m = 0){
-    this.grid = [];
-    this.revealedGrid = [];
-
-    this.minesLeft = 0;
-    this.safeLeft = 0;
-
-    if( gameType === 'small'){
-      this.createGrid(8, 8, 10);
-    }else if( gameType === 'medium'){
-      this.createGrid(16, 16, 40);
-    }else if( gameType === 'large'){
-      this.createGrid(24, 24, 99);
-    }else if( gameType === 'custom'){
-      this.createGrid(r, c, m);
-    }
-  }
 }

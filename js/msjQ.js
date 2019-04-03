@@ -9,16 +9,16 @@ const firstRender = function(){
 
     for ( let j = 0; j < ms.revealedGrid[0].length; j++ ){
       // $row.append(`<div class="hidden" id-"${i}${j}"><img src="images/cell.png"></div>`);
-      $row.append(`<div class="hidden square" id="${i}${j}"></div>`);
+      $row.append(`<div class="hidden square" id="c${i}r${j}"></div>`);
 
-      $( `#${i}${j}` ).on('click', function(){
+      $( `#c${i}r${j}` ).on('click', function(){
 
         ms.checkSquare(i, j);
 
       });
 
-      $( `#${i}${j}` ).on('contextmenu', function(){
-
+      $( `#c${i}r${j}` ).on('contextmenu', function(event){
+        event.preventDefault();
         ms.placeFlag(i, j);
 
       });
@@ -29,7 +29,7 @@ const firstRender = function(){
 }
 
 const revealSquare = function(c, r){
-  const $square = $( `#${c}${r}` );
+  const $square = $( `#c${c}r${r}` );
   $square.removeClass('hidden');
 
   if( ms.grid[c][r] === '0'){
@@ -69,7 +69,7 @@ const revealSquare = function(c, r){
 }
 
 const flagSquare = function(c, r){
-  const $square = $( `#${c}${r}` );
+  const $square = $( `#c${c}r${r}` );
 
   if( ms.revealedGrid[c][r] === 'f'){
     $square.removeClass('hidden');
@@ -83,9 +83,9 @@ const flagSquare = function(c, r){
 $(document).ready(function(){
 
   $( '#newGame' ).on( 'click', function(){
-    ms.newGame($( '#game-select' ).val());
+    ms.newGame($( '#game-select' ).val(), $('#custom-columns').val() , $('#custom-rows').val(), $('#custom-mines').val());
   });
 
-  ms.newGame('small');
+  ms.newGame('large');
 
 })

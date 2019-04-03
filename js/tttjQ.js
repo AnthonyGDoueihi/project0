@@ -1,17 +1,16 @@
 const render = function(){
 
-  for ( let i = 0; i < 3; i++ ){
-    for( let j = 0; j < 3; j++){
+  for ( let i = 0; i < 9; i++ ){
 
-      if(ttt.board[i][j] === 'O'){
-        $( `#id${i}${j}` ).html(`<img class='move' src="images/naught.png" alt="Naught">`);
+    if(ttt.board[i] === 'O'){
+      $( `#id${i + 1}` ).html(`<img class='move' src="images/naught.png" alt="Naught">`);
 
-      }else if(ttt.board[i][j] === 'X'){
-        $( `#id${i}${j}` ).html(`<img class='move' src="images/cross.png" alt="Cross">`);
+    }else if(ttt.board[i] === 'X'){
+      $( `#id${i + 1}` ).html(`<img class='move' src="images/cross.png" alt="Cross">`);
 
-      }else{
-        $( `#id${i}${j}` ).html(``);
-      }
+    }else{
+      $( `#id${i + 1}` ).html(``);
+
     }
   }
 
@@ -34,57 +33,57 @@ const render = function(){
 }
 
 $(document).ready(function(){
-  $( '#id00' ).on( 'click', function(){
+  $( '#id1' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(0, 0);
+      ttt.playerMakeMove(0);
     }
   });
 
-  $( '#id10' ).on( 'click', function(){
+  $( '#id2' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(1, 0);
+      ttt.playerMakeMove(1);
     }
   });
 
-  $( '#id20' ).on( 'click', function(){
+  $( '#id3' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(2, 0);
+      ttt.playerMakeMove(2);
     }
   });
 
-  $( '#id01' ).on( 'click', function(){
+  $( '#id4' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(0, 1);
+      ttt.playerMakeMove(3);
     }
   });
 
-  $( '#id11' ).on( 'click', function(){
+  $( '#id5' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(1, 1);
+      ttt.playerMakeMove(4);
     }
   });
 
-  $( '#id21' ).on( 'click', function(){
+  $( '#id6' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(2, 1);
+      ttt.playerMakeMove(5);
     }
   });
 
-  $( '#id02' ).on( 'click', function(){
+  $( '#id7' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(0, 2);
+      ttt.playerMakeMove(6);
     }
   });
 
-  $( '#id12' ).on( 'click', function(){
+  $( '#id8' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(1, 2);
+      ttt.playerMakeMove(7);
     }
   });
 
-  $( '#id22' ).on( 'click', function(){
+  $( '#id9' ).on( 'click', function(){
     if(ttt.playerTurn){
-      ttt.playerMakeMove(2, 2);
+      ttt.playerMakeMove(8);
     }
   });
 

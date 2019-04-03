@@ -1,12 +1,24 @@
 
 const ttt = {
-  board: [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']],
+  board: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
   movesLeft: 9,
 
+  winningSets: [
+    ['1', '2', '3'],
+    ['1', '4', '7'],
+    ['2', '5', '8'],
+    ['3', '6', '9'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['1', '5', '9'],
+    ['3', '5', '7']
+  ],
   //player 1 is 0 'O'
   //player 2 is 1 'X'
   turn: 0,
   victor: -1,
+
+  movesMade: [[],[]],
 
   //for AI games
   playerTurn: true,
@@ -15,9 +27,11 @@ const ttt = {
 
   newGame: function(gameType){
 
-      this.board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']];
+      this.board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      this.movesMade = [[],[]];
       this.movesLeft = 9;
       this.victor = -1;
+
       if(gameType === 'vsLocal'){
         this.easyAI = false;
         this.hardAI = false;
@@ -34,24 +48,25 @@ const ttt = {
       render();
   },
 
-  playerMakeMove: function(column, row){
-    if(this.board[column][row] !== '_'){
-      //TODO warn to place in valid place
+  playerMakeMove: function(pos){
+    if(this.board[pos] === 'X' || this.board[pos] === 'O'){
       return;
     };
-
     if( this.turn === 0 ){
-      this.board[column][row] = 'O';
+      this.board[pos] = 'O';
     }else{
-      this.board[column][row] = 'X';
+      this.board[pos] = 'X';
     };
 
+    this.movesMade[this.turn].push((pos + 1).toString());
+
     this.playerTurn = false,
-    ttt.endOfMove();
+    this.checkWin();
 
   },
 
   checkAI: function(){
+
     if( this.turn === 1 ){
       if( this.easyAI ){
         this.easyAIMakeMove();
@@ -62,75 +77,45 @@ const ttt = {
       }
     }
     this.playerTurn = true;
-
   },
 
   endOfMove: function(){
+
     if( this.turn === 0 ){
       this.turn = 1;
     }else{
       this.turn = 0;
     };
+
     this.movesLeft --;
-    this.checkWin();
-  },
 
-  checkWin: function(){
     render();
-
-    for ( let i = 0; i < 3; i++ ){
-      if( this.board[i][0] !== '_' && this.board[i][0] === this.board[i][1] && this.board[i][1] === this.board[i][2] ){
-        if( this.board[i][0] === 'X' ){
-            this.winner(1);
-            return;
-        }else{
-          this.winner(0);
-          return;
-        };
-      };
-
-      if( this.board[0][i] !== '_' && this.board[0][i] === this.board[1][i] && this.board[1][i] === this.board[2][i] ){
-        if( this.board[i][0] === 'X' ){
-            this.winner(1);
-            return;
-        }else{
-          this.winner(0);
-          return;
-        };
-      };
-    }
-
-    if ( this.board[1][1] !== '_' && this.board[0][0] === this.board[1][1] && this.board[1][1] === this.board[2][2] ){
-      if( this.board[1][1] === 'X' ){
-          this.winner(1);
-          return;
-      }else{
-        this.winner(0);
-        return;
-      };
-    };
-
-    if ( this.board[1][1] !== '_' && this.board[2][0] === this.board[1][1] && this.board[1][1] === this.board[0][2] ){
-      if( this.board[1][1] === 'X' ){
-          this.winner(1);
-          return;
-      }else{
-        this.winner(0);
-        return;
-      };
-    };
 
     if( this.movesLeft === 0 ){
       this.draw();
-      return;
+    }else {
+      this.checkAI();
     }
-    this.checkAI();
+  },
+
+  checkWin: function(){
+    if( this.movesLeft <= 5 ){
+      for ( let set of this.winningSets) {
+
+       if(this.movesMade[this.turn].includes(set[0]) && this.movesMade[this.turn].includes(set[1]) && this.movesMade[this.turn].includes(set[2])){
+         return this.winner(this.turn);
+        };
+      };
+    }
+
+    this.endOfMove();
   },
 
   draw: function(){
     this.victor = 3;
     render();
   },
+
 
   winner: function(player){
     this.victor = player;
@@ -142,23 +127,22 @@ const ttt = {
     let placed = false;
     while( !placed ){
 
-      const rColumn = Math.floor(Math.random() * 3);
-      const rRow = Math.floor(Math.random() * 3);
+      const rand = Math.floor(Math.random() * 9);
 
-      if( this.board[rColumn][rRow] === '_' ){
-        this.board[rColumn][rRow] = 'X';
+      if( this.board[rand] !== 'X' && this.board[rand] !== 'O' ){
+        this.board[rand] = 'X';
+        this.movesMade[this.turn].push((rand + 1).toString());
         placed = true;
       };
     };
 
-
-    this.endOfMove();
+    this.checkWin();
 
   },
 
   hardAIMakeMove: function(){
 
     //TODO make hard ai
-    this.endOfMove();
+    this.checkWin();
   },
 }

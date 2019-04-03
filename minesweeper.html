@@ -16,9 +16,21 @@
         <h1>Minesweeper</h1>
       </header>
       <main>
-        <div class="game">
+        <div class="game-container">
+          <div class="game-info">
+            <div class="info-text">
+              <p id="timer">123</p>
+            </div>
+            <img class='smiley' src="https://www.placebear.com/50/50">
+            <div class="info-text">
+              <p id="mines">99</p>
+            </div>
+          </div>
+          <div class="game">
 
+          </div>
         </div>
+
       </main>
       <footer>
         <h3>Settings</h3>
@@ -30,6 +42,9 @@
           <option value="">--Please choose an option--</option>
         </select>
         <input id="newGame" type="button" value="New Game" />
+        <input id="custom-rows" type="number" />
+        <input id="custom-columns" type="number" />
+        <input id="custom-mines" type="number" />
       </footer>
     </div>
   </body>
