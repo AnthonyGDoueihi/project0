@@ -15,49 +15,54 @@
   margin: 0 auto;
 }
 
-#id1{
+#id0{
   grid-column: 1/1;
+  grid-row: 1/1;
+}
+
+#id1{
+  grid-column: 2/2;
   grid-row: 1/1;
 }
 
 #id2{
-  grid-column: 2/2;
+  grid-column: 3/3;
   grid-row: 1/1;
 }
 
 #id3{
-  grid-column: 3/3;
-  grid-row: 1/1;
+  grid-column: 1/1;
+  grid-row: 2/2;
 }
 
 #id4{
-  grid-column: 1/1;
+  grid-column: 2/2;
   grid-row: 2/2;
 }
 
 #id5{
-  grid-column: 2/2;
+  grid-column: 3/3;
   grid-row: 2/2;
 }
 
 #id6{
-  grid-column: 3/3;
-  grid-row: 2/2;
-}
-
-#id7{
   grid-column: 1/1;
   grid-row: 3/3;
 }
 
-#id8{
+#id7{
   grid-column: 2/2;
   grid-row: 3/3;
 }
 
-#id9{
+#id8{
   grid-column: 3/3;
   grid-row: 3/3;
+}
+
+
+.button:hover{
+  background-color: rgba(200, 0, 200, 0.2);
 }
 
 .move{

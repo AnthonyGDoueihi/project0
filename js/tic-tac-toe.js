@@ -1,24 +1,22 @@
 
 const ttt = {
-  board: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+  board: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
   movesLeft: 9,
 
   winningSets: [
-    ['1', '2', '3'],
-    ['1', '4', '7'],
-    ['2', '5', '8'],
-    ['3', '6', '9'],
-    ['4', '5', '6'],
-    ['7', '8', '9'],
-    ['1', '5', '9'],
-    ['3', '5', '7']
+    [0, 1, 2],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6]
   ],
   //player 1 is 0 'O'
   //player 2 is 1 'X'
   turn: 0,
   victor: -1,
-
-  movesMade: [[],[]],
 
   //for AI games
   playerTurn: true,
@@ -27,8 +25,7 @@ const ttt = {
 
   newGame: function(gameType){
 
-      this.board = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      this.movesMade = [[],[]];
+      this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
       this.movesLeft = 9;
       this.victor = -1;
 
@@ -39,7 +36,8 @@ const ttt = {
         this.easyAI = true;
         this.hardAI = false;
       }else if(gameType === 'aiHard'){
-        //TODO make work
+        this.easyAI = false;
+        this.hardAI = true;
       }else if(gameType === 'vsOnline'){
         //TODO however the shit this happens
       }
@@ -57,8 +55,6 @@ const ttt = {
     }else{
       this.board[pos] = 'X';
     };
-
-    this.movesMade[this.turn].push((pos + 1).toString());
 
     this.playerTurn = false,
     this.checkWin();
@@ -100,22 +96,34 @@ const ttt = {
 
   checkWin: function(){
     if( this.movesLeft <= 5 ){
-      for ( let set of this.winningSets) {
-
-       if(this.movesMade[this.turn].includes(set[0]) && this.movesMade[this.turn].includes(set[1]) && this.movesMade[this.turn].includes(set[2])){
+       if(this.isWin(this.turn)){
          return this.winner(this.turn);
         };
-      };
     }
 
     this.endOfMove();
+  },
+
+  isWin: function(player, board = this.board){
+    let check;
+    if(player === 0){
+      check = 'O';
+    }else{
+      check = 'X';
+    }
+
+    for ( let set of this.winningSets) {
+       if(board[set[0]] === check && board[set[1]] === check && board[set[2]] === check){
+         return true;
+       };
+    };
+    return false;
   },
 
   draw: function(){
     this.victor = 3;
     render();
   },
-
 
   winner: function(player){
     this.victor = player;
@@ -131,7 +139,6 @@ const ttt = {
 
       if( this.board[rand] !== 'X' && this.board[rand] !== 'O' ){
         this.board[rand] = 'X';
-        this.movesMade[this.turn].push((rand + 1).toString());
         placed = true;
       };
     };
@@ -142,7 +149,87 @@ const ttt = {
 
   hardAIMakeMove: function(){
 
-    //TODO make hard ai
+    this.board[hardAI.minmax(this.board, 'X').index] = 'X';
     this.checkWin();
   },
+}
+
+const hardAI = {
+  iter: 0,
+
+  emptySpots: function(board){
+    const spots = board.filter(function(s){
+      return (s !== 'O' && s !== 'X')
+    });
+    return spots;
+  },
+
+  minmax: function(newBoard, player){
+    const availableSpots = this.emptySpots(newBoard);
+
+    if(ttt.isWin(0, newBoard)){
+      return {score: -10}
+    }else if(ttt.isWin(1, newBoard)){
+      return {score: 10}
+    }else if(availableSpots.length === 0){
+      return {score: 0}
+    }
+
+    const moves = [];
+
+    for(let i = 0; i < availableSpots.length; i++){
+
+      let move = {score: 0};
+      move.index = newBoard[availableSpots[i]];
+
+      newBoard[availableSpots[i]] = player;
+
+      if(player === 'X'){
+        this.iter ++;
+        const result = this.minmax(newBoard, 'O');
+        move.score += result.score;
+      }else{
+        this.iter --;
+        const result = this.minmax(newBoard, 'X');
+        move.score += result.score;
+      }
+
+      newBoard[availableSpots[i]] = move.index;
+
+      moves.push(move);
+
+    }
+
+    // console.log(moves);
+    // debugger;
+
+    let bestMove;
+    if ( player === 'X' ){
+
+      let bestScore = -10000;
+
+      for( var i = 0; i < moves.length; i++ ){
+
+        if( moves[i].score > bestScore ){
+
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }else{
+      let bestScore = 10000;
+
+      for( var i = 0; i < moves.length; i++ ){
+
+        if( moves[i].score < bestScore ){
+
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }
+
+   return moves[bestMove];
+  },
+
 }

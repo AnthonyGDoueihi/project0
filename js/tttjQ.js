@@ -3,13 +3,13 @@ const render = function(){
   for ( let i = 0; i < 9; i++ ){
 
     if(ttt.board[i] === 'O'){
-      $( `#id${i + 1}` ).html(`<img class='move' src="images/naught.png" alt="Naught">`);
+      $( `#id${i}` ).html(`<img class='move' src="images/naught.png" alt="Naught">`);
 
     }else if(ttt.board[i] === 'X'){
-      $( `#id${i + 1}` ).html(`<img class='move' src="images/cross.png" alt="Cross">`);
+      $( `#id${i}` ).html(`<img class='move' src="images/cross.png" alt="Cross">`);
 
     }else{
-      $( `#id${i + 1}` ).html(``);
+      $( `#id${i}` ).html(``);
 
     }
   }
@@ -33,55 +33,55 @@ const render = function(){
 }
 
 $(document).ready(function(){
-  $( '#id1' ).on( 'click', function(){
+  $( '#id0' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(0);
     }
   });
 
-  $( '#id2' ).on( 'click', function(){
+  $( '#id1' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(1);
     }
   });
 
-  $( '#id3' ).on( 'click', function(){
+  $( '#id2' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(2);
     }
   });
 
-  $( '#id4' ).on( 'click', function(){
+  $( '#id3' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(3);
     }
   });
 
-  $( '#id5' ).on( 'click', function(){
+  $( '#id4' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(4);
     }
   });
 
-  $( '#id6' ).on( 'click', function(){
+  $( '#id5' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(5);
     }
   });
 
-  $( '#id7' ).on( 'click', function(){
+  $( '#id6' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(6);
     }
   });
 
-  $( '#id8' ).on( 'click', function(){
+  $( '#id7' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(7);
     }
   });
 
-  $( '#id9' ).on( 'click', function(){
+  $( '#id8' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(8);
     }
@@ -91,6 +91,6 @@ $(document).ready(function(){
     ttt.newGame($( '#game-select' ).val());
   });
 
-  ttt.newGame();
+  ttt.newGame('vsLocal');
 
 })

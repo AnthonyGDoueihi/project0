@@ -1,4 +1,4 @@
-const firstRender = function(){
+const $firstRender = function(){
   $('.game').empty();
 
   for ( let i = 0; i < ms.revealedGrid.length; i++ ){
@@ -25,10 +25,15 @@ const firstRender = function(){
 
     };
   };
-
+  $infoBarRender();
 }
 
-const revealSquare = function(c, r){
+const $infoBarRender = function(){
+  $('#timer').html(ms.seconds);
+  $('#mines').html(ms.flagsLeft);
+}
+
+const $revealSquare = function(c, r){
   const $square = $( `#c${c}r${r}` );
   $square.removeClass('hidden');
 
@@ -68,7 +73,7 @@ const revealSquare = function(c, r){
   }
 }
 
-const flagSquare = function(c, r){
+const $flagSquare = function(c, r){
   const $square = $( `#c${c}r${r}` );
 
   if( ms.revealedGrid[c][r] === 'f'){
@@ -86,6 +91,6 @@ $(document).ready(function(){
     ms.newGame($( '#game-select' ).val(), $('#custom-columns').val() , $('#custom-rows').val(), $('#custom-mines').val());
   });
 
-  ms.newGame('large');
+  ms.newGame('small');
 
 })

@@ -1,9 +1,14 @@
 const ms = {
+  canPlay: true,
   grid: [],
   revealedGrid: [],
 
   minesLeft: 0,
   safeLeft: 0,
+  flagsLeft: 0,
+
+  cancel: 0,
+  seconds: 0,
 
   newGame: function(gameType, r = 1 , c = 1, m = 0){
     this.grid = [];
@@ -11,6 +16,14 @@ const ms = {
 
     this.minesLeft = 0;
     this.safeLeft = 0;
+    this.flagsLeft = 0;
+
+    window.clearInterval(this.cancel);
+    this.seconds = 0;
+    this.cancel = window.setInterval(function() {
+      ms.seconds ++;
+      $infoBarRender();
+    }, 1000);
 
     if( gameType === 'small'){
       this.createGrid(8, 8, 10);
@@ -31,6 +44,7 @@ const ms = {
 
     this.safeLeft = (c * r) - m;
     this.minesLeft = m;
+    this.flagsLeft = m;
 
     for ( let i = 0; i < c; i++ ){
       this.grid.push([]);
@@ -84,49 +98,50 @@ const ms = {
         }
       }
     };
-    firstRender();
+    $firstRender();
   },
 
   checkSquare: function(c, r){
-    if( this.revealedGrid[c][r] === 'f' ){
-      return;
-    }
+    if(this.canPlay){
+      if( this.revealedGrid[c][r] === 'f' ){
+        return;
+      }
 
-    if ( this.grid[c][r] === '0' ){
-      this.safeLeft --;
-      this.revealSquare(c, r);
+      if ( this.grid[c][r] === '0' ){
+        this.safeLeft --;
+        this.revealSquare(c, r);
 
-      for ( let x = c - 1; x <= c + 1; x++){
+        for ( let x = c - 1; x <= c + 1; x++){
 
-        for( let y = r - 1; y <= r + 1; y++){
+          for( let y = r - 1; y <= r + 1; y++){
 
-          if( x >= 0 && y >= 0 && x < this.grid.length && y < this.grid[0].length){
+            if( x >= 0 && y >= 0 && x < this.grid.length && y < this.grid[0].length){
 
-            if(this.revealedGrid[x][y] !== '1'){
+              if(this.revealedGrid[x][y] !== '1'){
 
-              if(!(x === c && y === r)){
+                if(!(x === c && y === r)){
 
-                this.checkSquare(x, y);
+                  this.checkSquare(x, y);
 
+                }
               }
             }
           }
+
         }
 
+      }else if(this.grid[c][r] === 'm'){
+
+        this.youLose();
+        this.revealSquare(c, r);
+
+      }else{
+
+        this.safeLeft --;
+        this.revealSquare(c, r);
+
       }
-
-    }else if(this.grid[c][r] === 'm'){
-
-      this.youLose();
-      this.revealSquare(c, r);
-
-    }else{
-
-      this.safeLeft --;
-      this.revealSquare(c, r);
-
     }
-
   },
 
   revealSquare: function(c, r){
@@ -134,27 +149,40 @@ const ms = {
     if( this.safeLeft === 0 ){
       this.youWin();
     }
-    revealSquare(c, r);
+    $revealSquare(c, r);
   },
 
   placeFlag: function(c, r){
-    if(this.revealedGrid[c][r] === '0'){
-      this.revealedGrid[c][r] = 'f';
-      flagSquare(c, r);
-    }else if(this.revealedGrid[c][r] === 'f'){
-      this.revealedGrid[c][r] = '0';
-      flagSquare(c, r);
+    if(this.canPlay){
+      if(this.revealedGrid[c][r] === '0'){
+        if(this.flagsLeft > 0){
+          this.revealedGrid[c][r] = 'f';
+          this.flagsLeft --;
+          $flagSquare(c, r);
+        }
+      }else if(this.revealedGrid[c][r] === 'f'){
+        this.revealedGrid[c][r] = '0';
+        this.flagsLeft++;
+        $flagSquare(c, r);
+      }
     }
-
   },
 
   youLose: function(){
+    this.stopAll();
     console.log("you lose");
     //TODO win lose effects
   },
 
   youWin: function(){
+    this.stopAll();
     console.log("you win");
   },
+
+  stopAll: function(){
+    window.clearInterval(this.cancel);
+    this.canPlay = false;
+
+  }
 
 }
