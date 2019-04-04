@@ -36,7 +36,7 @@ p{
   opacity: 0.7;
 }
 
-.move{
+.xMove, .oMove{
   max-width:100%;
   max-height:100%;
 }

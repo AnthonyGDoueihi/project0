@@ -5,11 +5,23 @@ const $render = function(){
 
   for ( let i = 0; i < 9; i++ ){
 
+    $('.oMove').on( 'error', function(){
+      oIcon = 'images/naught.png';
+      $render();
+      return;
+    })
+
+    $('.xMove').on( 'error', function(){
+      xIcon = 'images/cross.png';
+      $render();
+      return;
+    })
+
     if(ttt.board[i] === 'O'){
-      $( `#id${i}` ).html(`<img class='move' src="${oIcon}" alt="Naught">`);
+      $( `#id${i}` ).html(`<img class='oMove' src="${oIcon}" alt="Naught">`);
 
     }else if(ttt.board[i] === 'X'){
-      $( `#id${i}` ).html(`<img class='move' src="${xIcon}" alt="Cross">`);
+      $( `#id${i}` ).html(`<img class='xMove' src="${xIcon}" alt="Cross">`);
 
     }else{
       $( `#id${i}` ).html(``);
@@ -35,7 +47,15 @@ const $render = function(){
   $('p.help').html(wordsToSay);
 }
 
+
 $(document).ready(function(){
+  $('#reload-img').on( 'click', function(){
+
+    xIcon = $('#x-img').val();
+    oIcon = $('#o-img').val();
+  });
+
+
   $( '#id0' ).on( 'click', function(){
     if(ttt.playerTurn){
       ttt.playerMakeMove(0);
