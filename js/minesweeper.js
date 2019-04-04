@@ -9,9 +9,11 @@ const ms = {
 
   cancel: 0,
   seconds: 0,
+  //victory will be -1 if unknowns, 0 if loss, 1 if sucess
   victory: -1,
 
   newGame: function(gameType, r, c, m){
+    //reset all variables
     this.canPlay = true;
     this.grid = [];
     this.revealedGrid = [];
@@ -22,6 +24,7 @@ const ms = {
 
     this.victory = -1;
 
+    //second timer
     window.clearInterval(this.cancel);
     this.seconds = 0;
     this.cancel = window.setInterval(function() {
@@ -47,6 +50,7 @@ const ms = {
     this.minesLeft = m;
     this.flagsLeft = m;
 
+    //create to arrays of correct size with only 0's in them
     for ( let i = 0; i < c; i++ ){
       this.grid.push([]);
       this.revealedGrid.push([]);
@@ -56,6 +60,7 @@ const ms = {
       };
     };
 
+    //randomly places mines
     for (let i = 0; i < m; i++){
 
       let minePlaced = false;
@@ -71,6 +76,7 @@ const ms = {
       };
     };
 
+    //loops through all positions, checks if valid, and counts the mines in the adjacent positions
     for ( let i = 0; i < c; i++ ){
 
       for ( let j = 0; j < r; j++ ){
@@ -103,12 +109,14 @@ const ms = {
   },
 
   checkSquare: function(c, r){
+    //You cant reveal a flagged tile
     if(this.canPlay){
       if( this.revealedGrid[c][r] === 'f' ){
         return;
       }
 
       if ( this.grid[c][r] === '0' ){
+        //if the square is a 0, use a flood fill algorithm to reveal the adjacent squares
         this.safeLeft --;
         this.revealSquare(c, r);
 
@@ -132,12 +140,12 @@ const ms = {
         }
 
       }else if(this.grid[c][r] === 'm'){
-
+        //if the square is a mine you lose
         this.youLose();
         this.revealSquare(c, r);
 
       }else{
-
+        //otherwise continue
         this.safeLeft --;
         this.revealSquare(c, r);
 
@@ -146,6 +154,7 @@ const ms = {
   },
 
   revealSquare: function(c, r){
+    //records the position revelaed before revealing in jQuery
     this.revealedGrid[c][r] = '1';
     if( this.safeLeft === 0 ){
       this.youWin();
@@ -154,6 +163,7 @@ const ms = {
   },
 
   placeFlag: function(c, r){
+    //records position flagged (if you have more flags to place) and send to jQuerry
     if(this.canPlay){
       if(this.revealedGrid[c][r] === '0'){
         if(this.flagsLeft > 0){

@@ -1,4 +1,5 @@
 const $firstRender = function(){
+  //renders only once at the start of a new game. Creates the visual board
   $('.game').empty();
 
   for ( let i = 0; i < ms.revealedGrid.length; i++ ){
@@ -34,6 +35,7 @@ const $infoBarRender = function(){
 }
 
 const $revealSquare = function(c, r){
+  //takes a square as input and checks what is underneath, replacing the class to change the visual
   const $square = $( `#c${c}r${r}` );
   $square.removeClass('hidden');
 
@@ -98,6 +100,7 @@ const $faceRender = function(){
 $(document).ready(function(){
 
   $( '#newGame' ).on( 'click', function(){
+    //restricts row to 35 or it will reach further than the max width
     let r = $('#custom-rows').val();
     if( r > 35 ){
       r = 35;
@@ -105,6 +108,7 @@ $(document).ready(function(){
     ms.newGame($( '#game-select' ).val(), $('#custom-columns').val() , r, $('#custom-mines').val());
   });
 
+  //default first load
   ms.newGame('small');
 
 })

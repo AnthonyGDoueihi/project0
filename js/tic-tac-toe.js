@@ -3,6 +3,7 @@ const ttt = {
   board: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
   movesLeft: 9,
 
+  //all winning combinations
   winningSets: [
     [0, 1, 2],
     [0, 3, 6],
@@ -19,18 +20,20 @@ const ttt = {
   turn: 1,
   victor: -1,
 
-  //for AI games
+  //for AI games, the AI will always be player 2
   playerTurn: false,
   easyAI: false,
   hardAI: false,
 
   newGame: function(gameType){
 
+    //reset all values
       this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
       this.movesLeft = 9;
       this.victor = -1;
       this.playerTurn = false;
 
+      //set up AI
       if(gameType === 'vsLocal'){
         this.easyAI = false;
         this.hardAI = false;
@@ -44,6 +47,8 @@ const ttt = {
         //TODO however the shit this happens
       }
 
+
+      //The player who placed last round (winner or otherwise) will place second this time
       if( this.turn === 0 ){
         this.turn = 1;
       }else{
@@ -56,6 +61,7 @@ const ttt = {
 
   checkAI: function(){
 
+    //AI is always player 2 so check if turn and which ai is playing
     if( this.turn === 1 ){
       if( this.easyAI ){
         this.easyAIMakeMove();
@@ -65,14 +71,17 @@ const ttt = {
         return;
       }
     }
+    //otherwise it is a players turn
     this.playerTurn = true;
   },
 
   playerMakeMove: function(pos){
+    //If position already taken, try again
     if(this.board[pos] === 'X' || this.board[pos] === 'O'){
       return;
     };
 
+    //If not place dependant on turn
     if( this.turn === 0 ){
       this.board[pos] = 'O';
     }else{
@@ -95,6 +104,7 @@ const ttt = {
   },
 
   isWin: function(player, board = this.board){
+    //Done in this way so the minimax function can all it too
     let check;
     if(player === 0){
       check = 'O';
@@ -111,7 +121,7 @@ const ttt = {
   },
 
   endOfMove: function(){
-
+    //Switches whose turn is next
     if( this.turn === 0 ){
       this.turn = 1;
     }else{
@@ -121,7 +131,7 @@ const ttt = {
     this.movesLeft --;
 
     $render();
-
+    //checks if draw, otherwise continues
     if( this.movesLeft === 0 ){
       this.draw();
     }else {
@@ -140,7 +150,7 @@ const ttt = {
   },
 
   easyAIMakeMove: function(){
-
+    //easy AI isnt really ai, it picks a random point and places
     let placed = false;
     while( !placed ){
 
@@ -157,15 +167,17 @@ const ttt = {
   },
 
   hardAIMakeMove: function(){
-
+    //calls other object because there is alot and this is cleaner
     this.board[hardAI.minmax(this.board, 'X').index] = 'X';
     this.checkWin();
   },
 }
 
 const hardAI = {
+  //iter is for testing
   iter: 0,
 
+  // take input array and returns the empty positions
   emptySpots: function(board){
     const spots = board.filter(function(s){
       return (s !== 'O' && s !== 'X')
@@ -176,6 +188,7 @@ const hardAI = {
   minmax: function(newBoard, player){
     const availableSpots = this.emptySpots(newBoard);
 
+    //checks if theoretical placement resulted in a win and returns a positive or negative value as a result
     if(ttt.isWin(0, newBoard)){
       return {score: -10}
     }else if(ttt.isWin(1, newBoard)){
@@ -184,6 +197,7 @@ const hardAI = {
       return {score: 0}
     }
 
+    //creates array for potential moves and loops through all moves to see which will lead to victory or not loss
     const moves = [];
 
     for(let i = 0; i < availableSpots.length; i++){
@@ -193,6 +207,7 @@ const hardAI = {
 
       newBoard[availableSpots[i]] = player;
 
+      //Recall this function until there is a victory loss or tie condition met
       if(player === 'X'){
         this.iter ++;
         const result = this.minmax(newBoard, 'O');
@@ -209,9 +224,7 @@ const hardAI = {
 
     }
 
-    // console.log(moves);
-    // debugger;
-
+    //loops through all moves on this level, and returns either a positive for the AI, or a negative for the player
     let bestMove;
     if ( player === 'X' ){
 
@@ -237,7 +250,7 @@ const hardAI = {
         }
       }
     }
-
+    //returns to higher level of minimax
    return moves[bestMove];
   },
 

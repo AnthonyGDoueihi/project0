@@ -3,8 +3,9 @@ let xIcon = 'images/cross.png';
 
 const $render = function(){
 
+//loop through the board to render the move images
   for ( let i = 0; i < 9; i++ ){
-
+    //If image load has error, fix link and rerender
     $('.oMove').on( 'error', function(){
       oIcon = 'images/naught.png';
       $render();
@@ -16,6 +17,7 @@ const $render = function(){
       $render();
       return;
     })
+
 
     if(ttt.board[i] === 'O'){
       $( `#id${i}` ).html(`<img class='oMove' src="${oIcon}" alt="Naught">`);
@@ -29,6 +31,7 @@ const $render = function(){
     }
   }
 
+  //If the game is over print the result, if not print whose turn it is
   let wordsToSay = "";
   if(ttt.victor === -1){
     if(ttt.turn === 0){
@@ -55,65 +58,21 @@ $(document).ready(function(){
     oIcon = $('#o-img').val();
   });
 
+  //loop through positions and create event listeners
+  for ( let i = 0; i < 9; i++ ){
+    $( `#id${i}`).on( 'click', function(){
 
-  $( '#id0' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(0);
-    }
-  });
-
-  $( '#id1' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(1);
-    }
-  });
-
-  $( '#id2' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(2);
-    }
-  });
-
-  $( '#id3' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(3);
-    }
-  });
-
-  $( '#id4' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(4);
-    }
-  });
-
-  $( '#id5' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(5);
-    }
-  });
-
-  $( '#id6' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(6);
-    }
-  });
-
-  $( '#id7' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(7);
-    }
-  });
-
-  $( '#id8' ).on( 'click', function(){
-    if(ttt.playerTurn){
-      ttt.playerMakeMove(8);
-    }
-  });
+      if( ttt.playerTurn ){
+        ttt.playerMakeMove(i);
+      }
+    })
+  }
 
   $( '#newGame' ).on( 'click', function(){
     ttt.newGame($( '#game-select' ).val());
   });
 
+  //default first load
   ttt.newGame('vsLocal');
 
 })
