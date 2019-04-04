@@ -8,11 +8,10 @@ const $firstRender = function(){
     const $row = $(`.game div#${i}`);
 
     for ( let j = 0; j < ms.revealedGrid[0].length; j++ ){
-      // $row.append(`<div class="hidden" id-"${i}${j}"><img src="images/cell.png"></div>`);
+
       $row.append(`<div class="hidden square" id="c${i}r${j}"></div>`);
 
       $( `#c${i}r${j}` ).on('click', function(){
-
         ms.checkSquare(i, j);
 
       });
@@ -26,6 +25,7 @@ const $firstRender = function(){
     };
   };
   $infoBarRender();
+  $faceRender();
 }
 
 const $infoBarRender = function(){
@@ -85,10 +85,24 @@ const $flagSquare = function(c, r){
   }
 }
 
+const $faceRender = function(){
+  if( ms.victory === 1 ){
+    $('#smiley').attr('src', 'images/face-win.png');
+  }else if( ms.victory === 0 ){
+    $('#smiley').attr('src', 'images/face-dead.png');
+  }else{
+    $('#smiley').attr('src', 'images/face-norm.png');
+  };
+}
+
 $(document).ready(function(){
 
   $( '#newGame' ).on( 'click', function(){
-    ms.newGame($( '#game-select' ).val(), $('#custom-columns').val() , $('#custom-rows').val(), $('#custom-mines').val());
+    let r = $('#custom-rows').val();
+    if( r > 35 ){
+      r = 35;
+    }
+    ms.newGame($( '#game-select' ).val(), $('#custom-columns').val() , r, $('#custom-mines').val());
   });
 
   ms.newGame('small');

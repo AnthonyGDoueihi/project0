@@ -9,14 +9,18 @@ const ms = {
 
   cancel: 0,
   seconds: 0,
+  victory: -1,
 
-  newGame: function(gameType, r = 1 , c = 1, m = 0){
+  newGame: function(gameType, r, c, m){
+    this.canPlay = true;
     this.grid = [];
     this.revealedGrid = [];
 
     this.minesLeft = 0;
     this.safeLeft = 0;
     this.flagsLeft = 0;
+
+    this.victory = -1;
 
     window.clearInterval(this.cancel);
     this.seconds = 0;
@@ -39,9 +43,6 @@ const ms = {
   },
 
   createGrid: function(c, r, m){
-    this.grid = [];
-    this.revealedGrid = [];
-
     this.safeLeft = (c * r) - m;
     this.minesLeft = m;
     this.flagsLeft = m;
@@ -169,20 +170,19 @@ const ms = {
   },
 
   youLose: function(){
+    this.victory = 0;
     this.stopAll();
-    console.log("you lose");
-    //TODO win lose effects
   },
 
   youWin: function(){
+    this.victory = 1;
     this.stopAll();
-    console.log("you win");
   },
 
   stopAll: function(){
     window.clearInterval(this.cancel);
     this.canPlay = false;
-
+    $faceRender();
   }
 
 }

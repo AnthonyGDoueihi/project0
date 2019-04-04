@@ -2,36 +2,43 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Rubik:400i" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/minesweeper.css">
+
     <title>Mine Sweeper</title>
+
     <script src="js/minesweeper.js"></script>
     <script src="js/jQuery.js"></script>
     <script src="js/msjQ.js"></script>
   </head>
+
   <body>
     <div class="container">
       <header>
         <h1>Minesweeper</h1>
       </header>
+
       <main>
         <div class="game-container">
+          
           <div class="game-info">
             <div class="info-text">
               <p id="timer">123</p>
             </div>
-            <img class='smiley' src="https://www.placebear.com/50/50">
+            <img id='smiley'>
             <div class="info-text">
               <p id="mines">99</p>
             </div>
           </div>
-          <div class="game">
 
+          <div class="game">
           </div>
         </div>
 
       </main>
+
       <footer>
         <h3>Settings</h3>
         <select id="game-select">
@@ -42,14 +49,14 @@
           <option value="">--Please choose an option--</option>
         </select>
         <input id="newGame" type="button" value="New Game" />
-        
+
         <br />
         <label for="custom-rows">Number of Rows:</label>
-        <input id="custom-rows" type="number" />
+        <input id="custom-rows" type="number" max='35'value="10"/>
         <label for="custom-columns">Number of Columns:</label>
-        <input id="custom-columns" type="number" />
+        <input id="custom-columns" type="number" value="10"/>
         <label for="custom-mines">Number of Mines:</label>
-        <input id="custom-mines" type="number" />
+        <input id="custom-mines" type="number" min='1' value="10"/>
       </footer>
     </div>
   </body>

@@ -1,12 +1,15 @@
-const render = function(){
+let oIcon = 'images/naught.png';
+let xIcon = 'images/cross.png';
+
+const $render = function(){
 
   for ( let i = 0; i < 9; i++ ){
 
     if(ttt.board[i] === 'O'){
-      $( `#id${i}` ).html(`<img class='move' src="images/naught.png" alt="Naught">`);
+      $( `#id${i}` ).html(`<img class='move' src="${oIcon}" alt="Naught">`);
 
     }else if(ttt.board[i] === 'X'){
-      $( `#id${i}` ).html(`<img class='move' src="images/cross.png" alt="Cross">`);
+      $( `#id${i}` ).html(`<img class='move' src="${xIcon}" alt="Cross">`);
 
     }else{
       $( `#id${i}` ).html(``);

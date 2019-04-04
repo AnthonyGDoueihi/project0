@@ -1,38 +1,33 @@
-/*
-#FE4A49
-#94AE89
-#E6E6EA
-#FADF7F
-#616163
-*/
-
 *{
   box-sizing: border-box;
   /* border: 1px solid red; */
 }
 
 body{
-  background-color: #616163;
+  background-color: #fff;
 }
 
 .container{
    max-width: 960px;
    border-radius: 0.5em;
    margin: 0 auto;
-   background-color: #E6E6EA
+   background-color: #E1E2E1;
+   box-shadow: inset 0 0 10px #000000;
 }
 
 header{
   text-align: center;
   font-size: 200%;
-  background-color: #94AE89;
+  background-color: #6a1b9a;
   padding: 1em;
-  border-radius: 0.5em;
-  color: #FADF7F;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  color: white;
+  border-top: 30px solid #38006b;
 }
 
 main{
-  color: #FE4A49;
+  color: black;
 }
 
 .wrapper{
@@ -44,19 +39,27 @@ main{
 .gameName{
   width: 40%;
   text-align: right;
-  font-size: 5em;
+  font-size: 3em;
 }
 
-a{
-  width: 58%;
-}
 
 .gameImage{
-  line-height: 300px;
+  max-width: 420px;
+  border: 20px solid #ffcc80;
+  margin: 40px;
+  box-shadow: 10px 10px 5px #000000;
 }
 
 footer{
-  background-color: #94AE89;
-  height: 12em;
+  background-color: #9b4dcb;
+  height: 7.3em;
+  border-bottom: 1em solid #6a1b9a;
+}
 
+h2, h3{
+  font-family: 'Baloo Chettan', cursive;
+}
+
+h1, p{
+  font-family: 'Rubik', sans-serif;
 }

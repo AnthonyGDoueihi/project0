@@ -13,13 +13,14 @@ const ttt = {
     [0, 4, 8],
     [2, 4, 6]
   ],
+
   //player 1 is 0 'O'
   //player 2 is 1 'X'
-  turn: 0,
+  turn: 1,
   victor: -1,
 
   //for AI games
-  playerTurn: true,
+  playerTurn: false,
   easyAI: false,
   hardAI: false,
 
@@ -28,6 +29,7 @@ const ttt = {
       this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
       this.movesLeft = 9;
       this.victor = -1;
+      this.playerTurn = false;
 
       if(gameType === 'vsLocal'){
         this.easyAI = false;
@@ -42,23 +44,14 @@ const ttt = {
         //TODO however the shit this happens
       }
 
+      if( this.turn === 0 ){
+        this.turn = 1;
+      }else{
+        this.turn = 0;
+      };
+
+      $render();
       this.checkAI();
-      render();
-  },
-
-  playerMakeMove: function(pos){
-    if(this.board[pos] === 'X' || this.board[pos] === 'O'){
-      return;
-    };
-    if( this.turn === 0 ){
-      this.board[pos] = 'O';
-    }else{
-      this.board[pos] = 'X';
-    };
-
-    this.playerTurn = false,
-    this.checkWin();
-
   },
 
   checkAI: function(){
@@ -75,23 +68,20 @@ const ttt = {
     this.playerTurn = true;
   },
 
-  endOfMove: function(){
-
-    if( this.turn === 0 ){
-      this.turn = 1;
-    }else{
-      this.turn = 0;
+  playerMakeMove: function(pos){
+    if(this.board[pos] === 'X' || this.board[pos] === 'O'){
+      return;
     };
 
-    this.movesLeft --;
+    if( this.turn === 0 ){
+      this.board[pos] = 'O';
+    }else{
+      this.board[pos] = 'X';
+    };
 
-    render();
+    this.playerTurn = false,
+    this.checkWin();
 
-    if( this.movesLeft === 0 ){
-      this.draw();
-    }else {
-      this.checkAI();
-    }
   },
 
   checkWin: function(){
@@ -112,7 +102,7 @@ const ttt = {
       check = 'X';
     }
 
-    for ( let set of this.winningSets) {
+    for ( let set of this.winningSets ) {
        if(board[set[0]] === check && board[set[1]] === check && board[set[2]] === check){
          return true;
        };
@@ -120,14 +110,33 @@ const ttt = {
     return false;
   },
 
+  endOfMove: function(){
+
+    if( this.turn === 0 ){
+      this.turn = 1;
+    }else{
+      this.turn = 0;
+    };
+
+    this.movesLeft --;
+
+    $render();
+
+    if( this.movesLeft === 0 ){
+      this.draw();
+    }else {
+      this.checkAI();
+    }
+  },
+
   draw: function(){
     this.victor = 3;
-    render();
+    $render();
   },
 
   winner: function(player){
     this.victor = player;
-    render();
+    $render();
   },
 
   easyAIMakeMove: function(){
