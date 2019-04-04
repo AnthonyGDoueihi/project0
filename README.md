@@ -9,7 +9,5 @@ The Tic Tac Toe has AI and the ability to change the image of your X or O. The M
 
 I would like to finish 2048 and potentially add SVG animations to the games. I would also like to create an online VS mode.
 
-- List Of Any Known Bugs
-- Wishlist/Future features
 
 AND THANK YOUS TO JOEL AND YIANNI
